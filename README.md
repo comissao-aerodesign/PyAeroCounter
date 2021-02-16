@@ -50,20 +50,23 @@ Available options:
 
 ## 3)  Dependencies - MikTeX
 
-The user must have the following software installed:
+The user must have the following softwares installed:
 
-Extract images from PDF using pdftohtml - MikTeX Download:
+### Extract images from PDF using pdftohtml - MikTeX Download:
 
 https://miktex.org/download
 
+### Google's Tesseract-OCR Engine
 
+https://github.com/tesseract-ocr/tesseract   
+For windows - precompiled binaries: https://digi.bib.uni-mannheim.de/tesseract/
 
 ## 4) For advanced users ... 
 ### ... that want to run the source code, it is necessary to install python and the following packages:
 
 pdfminer3
 
-pyteressact   (It requires the installation of the Google's Tesseract-OCR Engine)
+pytesseract   (It requires the installation of the Google's Tesseract-OCR Engine)
 
 ------ Check the source code for more information.
 
