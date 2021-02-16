@@ -50,7 +50,7 @@ Available options:
 
 ## 3)  Dependencies - MikTeX
 
-The user must have the following softwares installed:
+In order to properly handle images and its content, the user must have the following softwares installed:
 
 ### Extract images from PDF using pdftohtml - MikTeX Download:
 
@@ -60,6 +60,8 @@ https://miktex.org/download
 
 https://github.com/tesseract-ocr/tesseract   
 For windows - precompiled binaries: https://digi.bib.uni-mannheim.de/tesseract/
+
+If the user does not install the above software, PyAeroCounter.exe will not extract image and read the text from it.
 
 ## 4) For advanced users ... 
 ### ... that want to run the source code, it is necessary to install python and the following packages:
