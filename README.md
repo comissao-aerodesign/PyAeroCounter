@@ -62,12 +62,13 @@ Installed file path example:
 
 ```bash
 C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdftohtml.exe
-```	  
-	  
+```
+
 ## 4) For advanced users ... 
 ### ... that want to run the source code, it is necessary to install python and the following packages:
 
 pdfminer3
+
 pyteressact   (It requires the installation of the Google's Tesseract-OCR Engine)
 
 ------ Check the source code for more information.
@@ -77,8 +78,10 @@ The pdfminer3 package was modified during the development of the PyAeroCounter s
 
 Substitute the following installed scripts in your computer for the ones provided in 'auxiliar' folder:
 
+```bash
    cmapdb.py
    converter.py
+```
    
 ### ... that want to compile the source code, use pyinstaller.
 
