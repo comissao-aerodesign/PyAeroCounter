@@ -2,6 +2,7 @@
 Contador de palavras para a Competição AeroDesign // Word counter for the Aerodesign Competition
 
 Author:  Member of [Comissao Tecnica Aerodesign](www.aeroct.com.br)
+
             Geovana Neves (geovanan90@gmail.com)
 
 ## 1) WINDOWS: standalone application 
@@ -58,8 +59,11 @@ https://miktex.org/download
 
 https://miktex.org/packages/miktex-poppler-bin-2.9/files
 
-Installed file path example: C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdftohtml.exe
-	  
+Installed file path example: 
+
+```bash
+C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdftohtml.exe
+```	  
 	  
 ## 4) For advanced users ... 
 ### that want to run the source code, it is necessary to install python and the following packages:
