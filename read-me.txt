@@ -4,7 +4,12 @@ Author:  Member of "Comissao Tecnica Aerodesign" (www.aeroct.com.br)
             Geovana Neves (geovanan90@gmail.com)
 
 1 -> WINDOWS: Get the standalone application in the folder 'dist':
+
 ./dist/PyAeroCounter.exe
+
+If you have any problem downloading the executable file, download the .zip that contains the PyAeroCounter.exe
+
+./dist/PyAeroCounter.zip
 
 This standalone application only requires MikTeK in order to execute properly, see item 3 of this file.
 
