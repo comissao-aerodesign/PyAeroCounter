@@ -51,9 +51,8 @@ Available options:
 ## 3)  Dependencies - MikTeX
 
 The user must have the following software installed:
-Extract images from PDF using pdftohtml (miktex)
 
-Download:
+Extract images from PDF using pdftohtml - MikTeX Download:
 
 https://miktex.org/download
 
