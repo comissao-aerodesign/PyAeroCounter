@@ -279,50 +279,53 @@ if images_folder:
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Extract text from images using TESSERACT OCR
 count_mathwords_temp = 0
-if extract:
-    with io.open(strings_figures,'w', encoding='utf8') as wfile:
-        wfile.write('\n')
+try:
+    if extract:
+        with io.open(strings_figures,'w', encoding='utf8') as wfile:
+            wfile.write('\n')
 
-    for root, folder, files in os.walk('./'+images_folder):
-        images = deepcopy(files)
-        images = [i for i in images if any(extension in i for extension in ['.png','.jpg'])]
+        for root, folder, files in os.walk('./'+images_folder):
+            images = deepcopy(files)
+            images = [i for i in images if any(extension in i for extension in ['.png','.jpg'])]
 
-        countfigures = len(images)
-        if countfigures > 1000:
-            countfigures = countfigures_pdfminer
-            with io.open(strings_figures,'a', encoding='utf8') as wfile:
-                wfile.write('#------------------------------------\n')
-                wfile.write('# Numero de imagens extraidas excede 1000 e o texto nao sera pos-processado. \n Verifique o documento PDF!!! \n\n')
-                wfile.write('# Number of images exceeds 1000 and the text will not be post-processed. \n Check the PDF document!!! \n\n')
+            countfigures = len(images)
+            if countfigures > 1000:
+                countfigures = countfigures_pdfminer
+                with io.open(strings_figures,'a', encoding='utf8') as wfile:
+                    wfile.write('#------------------------------------\n')
+                    wfile.write('# Numero de imagens extraidas excede 1000 e o texto nao sera pos-processado. \n Verifique o documento PDF!!! \n\n')
+                    wfile.write('# Number of images exceeds 1000 and the text will not be post-processed. \n Check the PDF document!!! \n\n')
+                    
+                    countwords = 9999
+                    countnonwords = 9999
+                    break
+
+            for j in range(len(images)):
+                words = ocr_core('./'+images_folder +'/'+images[j])            
+
+                # remove breaklines
+                words = words.replace('\n',' ')
+                # split line in words
+                words = words.split(' ')            
+
+                # remove empty items
+                while '' in words:
+                    words.remove('') 
                 
-                countwords = 9999
-                countnonwords = 9999
-                break
+                words, countwords, non_words, countnonwords, count_mathwords_temp = return_categorized_words(words,countwords,countnonwords,count_mathwords_temp)
 
-        for j in range(len(images)):
-            words = ocr_core('./'+images_folder +'/'+images[j])            
-
-            # remove breaklines
-            words = words.replace('\n',' ')
-            # split line in words
-            words = words.split(' ')            
-
-            # remove empty items
-            while '' in words:
-                words.remove('') 
-            
-            words, countwords, non_words, countnonwords, count_mathwords_temp = return_categorized_words(words,countwords,countnonwords,count_mathwords_temp)
-
-            with io.open(strings_figures,'a', encoding='utf8') as wfile:
-                wfile.write('#------------------------------------\n')
-                wfile.write('# Arquivo: \n')
-                wfile.write('{} '.format(images[j]))
-                wfile.write('\n')
-                for k in range(len(words)):
-                    wfile.write('{} '.format(words[k]))
+                with io.open(strings_figures,'a', encoding='utf8') as wfile:
+                    wfile.write('#------------------------------------\n')
+                    wfile.write('# Arquivo: \n')
+                    wfile.write('{} '.format(images[j]))
                     wfile.write('\n')
-        break
-
+                    for k in range(len(words)):
+                        wfile.write('{} '.format(words[k]))
+                        wfile.write('\n')
+            break
+except:
+    countwords = 9999
+    countnonwords = 9999
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------------------------------
