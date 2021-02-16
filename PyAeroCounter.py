@@ -173,7 +173,7 @@ interpreter = PDFPageInterpreter(rsrcmgr, device)
 j = 0
 counttext    = []
 notcounttext = []
-keywords = ['Lista de Símbolos','LISTA DE SIMBOLOS','Sumário','Lista de Inputs','Lista de Outputs','Bibliografia','Referências Bibliográficas']
+keywords = ['Lista de Símbolos','LISTA DE SIMBOLOS','Sumário','Lista de Inputs','Lista de Outputs','Bibliografia','Referências Bibliográﬁcas']
 countwords = 0
 countnonwords = 0
 countfigures = 0
@@ -202,7 +202,7 @@ for page in PDFPage.get_pages(document):
     for element in layout:
         headerfooter = False
         position = element.bbox        
-        if position[1]/28.35>=28.1 or position[3]/28.35<=2.0:
+        if position[3]/28.35>=27.0 or position[1]/28.35<=1.75:
             headerfooter = True
         
         if isinstance(element, LTTextBoxHorizontal) or isinstance(element, LTTextBox) or isinstance(element, LTTextLine):
@@ -212,9 +212,11 @@ for page in PDFPage.get_pages(document):
             words = element.get_text() 
 
             # check if the page must be considered
-            if k < 5 and countpage:
+            if headerfooter and countpage:
+                # remove breaklines
+                words = words.replace('\n','')
                 for keyword in keywords:
-                    if len(words)>=len(keyword) and len(words)<len(keyword)+9 and keyword.lower() in words.lower():
+                    if keyword.lower() in words.lower():
                         countpage = False
                         break
             
@@ -229,7 +231,7 @@ for page in PDFPage.get_pages(document):
                 words.remove('') 
 
             # count only pages with valid content    
-            if countpage or headerfooter:
+            if countpage and not headerfooter:
                 words, countwords, non_words, countnonwords, count_mathwords_temp = return_categorized_words(words,countwords,countnonwords,count_mathwords)
                 count_mathwords = count_mathwords + count_mathwords_temp
 

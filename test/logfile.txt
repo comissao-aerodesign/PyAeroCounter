@@ -1,0 +1,7 @@
+Words:         2065 
+Non-Words:     11 
+Figures Files: 20 
+Words in Figures: 174 
+Non-Words in Figures: 85 
+Num. of Pages: 13 
+Words in Math Mode (Microsoft Word): 0 

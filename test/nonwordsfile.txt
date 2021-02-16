@@ -1,0 +1,100 @@
+SAE BRASIL AERODESIGN 2021 
+Universidade do Aerodesign 
+Aerodinâmica 
+N° 000 - Equipe Aerodesign 
+Nome do Aluno 1 Nome do Aluno 2 Nome do Aluno 3 Nome do Aluno 4 Nome do Aluno 5 Nome do Aluno 6 Nome do Aluno 7 Nome do Aluno 8 
+Nome do Aluno 9 Nome do Aluno 10 Nome do Aluno 11 Nome do Aluno 12 Nome do Aluno 13 Nome do Aluno 14 Nome do Aluno 15 
+Orientador: Santos-Dummont aerodesign@universidade.com.br 
+16 de fevereiro de 2021 
+Sumário 
+Sumário 
+Lista de Inputs 
+1 Introdução 
+1.1 Objetivo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1.2 Escopo . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+2 Conteúdo 
+3 Conclusão 
+Lista de Outputs 
+Referências Bibliográﬁcas 
+2 
+4 5 5 
+6 
+8 
+10 
+12 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+1 de 12 
+Lista de Inputs 
+Lista de Inputs 
+Figura 1: Exemplo 1 [1] 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+2 de 12 
+Lista de Inputs 
+Figura 2: Exemplo 2 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+3 de 12 
+Capítulo 1. 
+Introdução 
+1 
+1.1: 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+4 de 12 
+Capítulo 1. 
+Introdução 
+1.1 
+1.2 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+5 de 12 
+Capítulo 2. Conteúdo 
+2 
+2.1: 1 [1] 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+6 de 12 
+Capítulo 2. Conteúdo 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+7 de 12 
+Capítulo 3. Conclusão 
+3 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+8 de 12 
+Capítulo 3. Conclusão 
+3.1: 2 
+Equipe:Instituição: 
+000 - Equipe AerodesignUniversidade do Aerodesign 
+Página: 
+9 de 12 
+Lista de Outputs 
+Lista de Outputs 
+Figura 3.2: Exemplo 1 [1] 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+10 de 12 
+Lista de Outputs 
+Figura 3.3: Exemplo 2 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+11 de 12 
+Referências Bibliográﬁcas 
+Referências Bibliográﬁcas 
+[1] Exemplo, “Exemplo de uso de referência.” 
+Equipe: Instituição: 
+000 - Equipe Aerodesign Universidade do Aerodesign 
+Página: 
+12 de 12 
