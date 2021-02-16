@@ -56,13 +56,7 @@ Extract images from PDF using pdftohtml - MikTeX Download:
 
 https://miktex.org/download
 
-https://miktex.org/packages/miktex-poppler-bin-2.9/files
 
-Installed file path example: 
-
-```bash
-C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdftohtml.exe
-```
 
 ## 4) For advanced users ... 
 ### ... that want to run the source code, it is necessary to install python and the following packages:
@@ -73,6 +67,8 @@ pyteressact   (It requires the installation of the Google's Tesseract-OCR Engine
 
 ------ Check the source code for more information.
 
+
+
 WARNING: 
 The pdfminer3 package was modified during the development of the PyAeroCounter script.
 
@@ -82,6 +78,8 @@ Substitute the following installed scripts in your computer for the ones provide
    cmapdb.py
    converter.py
 ```
+   
+   
    
 ### ... that want to compile the source code, use pyinstaller.
 
