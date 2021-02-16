@@ -66,7 +66,7 @@ C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdftohtml.exe
 ```	  
 	  
 ## 4) For advanced users ... 
-### that want to run the source code, it is necessary to install python and the following packages:
+### ... that want to run the source code, it is necessary to install python and the following packages:
 
 pdfminer3
 pyteressact   (It requires the installation of the Google's Tesseract-OCR Engine)
@@ -81,7 +81,7 @@ Substitute the following installed scripts in your computer for the ones provide
    cmapdb.py
    converter.py
    
-### that want to compile the source code, use pyinstaller.
+### ... that want to compile the source code, use pyinstaller.
 
 Get it: https://pypi.org/project/pyinstaller/
 
