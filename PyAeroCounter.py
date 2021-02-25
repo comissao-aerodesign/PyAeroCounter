@@ -179,6 +179,8 @@ countnonwords = 0
 countfigures = 0
 count_mathwords = 0
 
+count_specialpages = 0
+
 if mathmodewords:
     with io.open(mathmodewords,'w', encoding='utf8') as wfile:
         wfile.write('\n')
@@ -189,6 +191,7 @@ for page in PDFPage.get_pages(document):
     # remove first page
     if j<=1:
         countpage = False
+        count_specialpages = count_specialpages + 1
 
     interpreter.process_page(page)
 
@@ -218,6 +221,7 @@ for page in PDFPage.get_pages(document):
                 for keyword in keywords:
                     if keyword.lower() in words.lower():
                         countpage = False
+                        count_specialpages = count_specialpages + 1
                         break
             
             # remove breaklines
@@ -358,6 +362,7 @@ with io.open(logfile,'w') as wfile:
     wfile.write('Figures Files: {} \n'.format(countfigures))
     wfile.write('Words in Figures: {} \n'.format(countwords))
     wfile.write('Non-Words in Figures: {} \n'.format(countnonwords))
-    wfile.write('Num. of Pages: {} \n'.format(number_of_pages))
-    wfile.write('Words in Math Mode (Microsoft Word): {} \n'.format(count_mathwords))
+    wfile.write('Total Num. of Pages: {} \n'.format(number_of_pages))
+    wfile.write('Num. of Special Pages: {} \n'.format(count_specialpages))
+    wfile.write('Words in Math Mode (Microsoft Word): {} \n'.format(count_mathwords))    
 	

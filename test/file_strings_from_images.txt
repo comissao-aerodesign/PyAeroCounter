@@ -177,7 +177,6 @@ block
 hours 
 ago 
 README.md 
-o 
 PyAeroCounter 
 Contador 
 de 

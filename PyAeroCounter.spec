@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['PyAeroCounter.py'],
-             pathex=['C:\\OneDrive\\Documents\\GitHub\\PyAeroCounter'],
+             pathex=['D:\\OneDrive\\Aerodesign\\GitHub\\PyAeroCounter'],
              binaries=[],
              datas=[],
              hiddenimports=[],
