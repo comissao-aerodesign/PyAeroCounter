@@ -27,7 +27,7 @@ import pytesseract
 
 
 #CONVERTER O CODIGO DO CONTADOR EM FUNÇÃO PARA USAR COM A GUI
-def PyAeroCounter_function(Cab_and_Rodape,Save_logfile,pdffile,images_folder):
+
 #  Get pytesseract and teressact:
 #  https://pypi.org/project/pytesseract/
 #  https://github.com/tesseract-ocr/tesseract   (windows - precompiled binaries: https://digi.bib.uni-mannheim.de/tesseract/)
@@ -49,97 +49,98 @@ def PyAeroCounter_function(Cab_and_Rodape,Save_logfile,pdffile,images_folder):
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Auxiliar functions
 
-    def ocr_core(filename_extract):
-        # COMANDO PARA LINKAR O CAMINHO DO TESSERACT (NÃO PRECISA CONFIGURAR O PATH NAS VARIAVEIS DE AMBIENTES)
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' # sugestão criar opção para modificar esse caminho 
-        """
-        This function will handle the core OCR processing of images.
-        """
-        text = pytesseract.image_to_string(Image.open(filename_extract))  
-        return text
+def ocr_core(filename_extract):
+    # COMANDO PARA LINKAR O CAMINHO DO TESSERACT (NÃO PRECISA CONFIGURAR O PATH NAS VARIAVEIS DE AMBIENTES)
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' # sugestão criar opção para modificar esse caminho 
+    """
+    This function will handle the core OCR processing of images.
+    """
+    text = pytesseract.image_to_string(Image.open(filename_extract))  
+    return text
 
-    def usage():
-        print(f'usage: [-o logfile] [-w wordsfile] [-n nonwordsfile] '
-            ' [-d output_dir]  [-i input.pdf] [-e extract_words_from_images] [-f file_strings_from_images] [-g mathmodewords] ...')
-        return 100
+def usage():
+    print(f'usage: [-o logfile] [-w wordsfile] [-n nonwordsfile] '
+        ' [-d output_dir]  [-i input.pdf] [-e extract_words_from_images] [-f file_strings_from_images] [-g mathmodewords] ...')
+    return 100
 
-    def return_categorized_words(words,countwords,countnonwords,count_mathwords):
-        # This function select valid words that are considered in the final count
-        # and separate them form the non-words items.
-        # All the relevant criteria for word counting are applied in this function.
-        count_mathwords = 0
-        i = 0
-        non_words = []
-        while i<len(words):
-            words_unicode = words[i].encode('raw_unicode_escape')
+def return_categorized_words(words,countwords,countnonwords,count_mathwords):
+# This function select valid words that are considered in the final count
+# and separate them form the non-words items.
+# All the relevant criteria for word counting are applied in this function.
+count_mathwords = 0
+i = 0
+non_words = []
+while i<len(words):
+    words_unicode = words[i].encode('raw_unicode_escape')
 
-            # remove mathematical strings  (Microsoft Word)
-            if 'U0001d' in str(words_unicode):
-                
-                # Counting words written in math mode (Microsoft Word)
-                it_is_word = 0
-                temp = deepcopy(str(words_unicode))
-                temp = temp.replace("b'",'')
-                temp = temp.split('\\')
-                
-                # remove empty items
-                while '' in temp:
-                    temp.remove('') 
+    # remove mathematical strings  (Microsoft Word)
+    if 'U0001d' in str(words_unicode):
+        
+        # Counting words written in math mode (Microsoft Word)
+        it_is_word = 0
+        temp = deepcopy(str(words_unicode))
+        temp = temp.replace("b'",'')
+        temp = temp.split('\\')
+        
+        # remove empty items
+        while '' in temp:
+            temp.remove('') 
 
-                for g in range(len(words[i])):
-                    if unicodedata.category(words[i][g]) in 'LuLl' and  len(temp)==len(words[i]) and len(temp[g])>7 and temp[g][7] in '0123456789':
-                        it_is_word = 1
-                    elif unicodedata.category(words[i][g]) in 'Mn':
-                        it_is_word = 1
-                    else:
-                        it_is_word = 0
-                        break
-
-                if it_is_word:
-                    count_mathwords = count_mathwords+1
-                    if mathmodewords:
-                        with io.open(mathmodewords,'a', encoding='utf8') as wfile:
-                            wfile.write('{} '.format(words[i]))
-                            wfile.write('\n')
-
-                non_words.append(words[i])
-                words.remove(words[i])
-                countnonwords = countnonwords + 1
-            # remove greek char
-            elif '\\u03' in str(words_unicode):
-                non_words.append(words[i])
-                words.remove(words[i])
-                countnonwords = countnonwords + 1
-            # remove numeric strings 
-            elif words[i].isnumeric() or any(punct in words[i] for punct in string.digits):
-                non_words.append(words[i])
-                words.remove(words[i])
-                countnonwords = countnonwords + 1
-            elif not words[i].isalpha() and not any(char in string.punctuation+'´¸˜-ˆ' for char in words[i]):
-                non_words.append(words[i])
-                words.remove(words[i])
-                countnonwords = countnonwords + 1
-            elif len(words[i]) == 1 and any(punct in words[i] for punct in string.punctuation):   
-                non_words.append(words[i])
-                words.remove(words[i])
-                countnonwords = countnonwords + 1
-            elif words[i] == len(words[i]) * '.':
-                non_words.append(words[i])
-                words.remove(words[i])
+        for g in range(len(words[i])):
+            if unicodedata.category(words[i][g]) in 'LuLl' and  len(temp)==len(words[i]) and len(temp[g])>7 and temp[g][7] in '0123456789':
+                it_is_word = 1
+            elif unicodedata.category(words[i][g]) in 'Mn':
+                it_is_word = 1
             else:
-                i=i+1
-                countwords = countwords+1
+                it_is_word = 0
+                break
 
-        return words, countwords, non_words, countnonwords, count_mathwords    
+        if it_is_word:
+            count_mathwords = count_mathwords+1
+            if mathmodewords:
+                with io.open(mathmodewords,'a', encoding='utf8') as wfile:
+                    wfile.write('{} '.format(words[i]))
+                    wfile.write('\n')
 
-    try:
-        opts, args = getopt.getopt(sys.argv[1:],'o:w:n:d:i:e:f:g:')
-    except getopt.GetoptError as err:
-        # print help information and exit:
-        print(err) # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
+        non_words.append(words[i])
+        words.remove(words[i])
+        countnonwords = countnonwords + 1
+    # remove greek char
+    elif '\\u03' in str(words_unicode):
+        non_words.append(words[i])
+        words.remove(words[i])
+        countnonwords = countnonwords + 1
+    # remove numeric strings 
+    elif words[i].isnumeric() or any(punct in words[i] for punct in string.digits):
+        non_words.append(words[i])
+        words.remove(words[i])
+        countnonwords = countnonwords + 1
+    elif not words[i].isalpha() and not any(char in string.punctuation+'´¸˜-ˆ' for char in words[i]):
+        non_words.append(words[i])
+        words.remove(words[i])
+        countnonwords = countnonwords + 1
+    elif len(words[i]) == 1 and any(punct in words[i] for punct in string.punctuation):   
+        non_words.append(words[i])
+        words.remove(words[i])
+        countnonwords = countnonwords + 1
+    elif words[i] == len(words[i]) * '.':
+        non_words.append(words[i])
+        words.remove(words[i])
+    else:
+        i=i+1
+        countwords = countwords+1
 
+    return words, countwords, non_words, countnonwords, count_mathwords    
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:],'o:w:n:d:i:e:f:g:')
+except getopt.GetoptError as err:
+    # print help information and exit:
+    print(err) # will print something like "option -a not recognized"
+    usage()
+    sys.exit(2)
+
+def PyAeroCounter_function(Cab_and_Rodape,Save_logfile,pdffile,images_folder):
     # default inputs
     logfile = 'logfile.txt'
     wordsfile = 'wordsfile.txt'
