@@ -1,4 +1,4 @@
-from pdfminer3.layout import LAParams
+from pdfminer3.layout import LAParams, LTChar
 from pdfminer3.pdfinterp import PDFResourceManager
 from pdfminer3.converter import PDFPageAggregator
 from pdfminer3.pdfinterp import PDFPageInterpreter
@@ -41,6 +41,19 @@ import pytesseract
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 # Auxiliar functions
+
+def parse_layout(string_from_LTFigure,layout):
+    """Function to recursively parse the layout tree."""
+    previous_line = 0
+    for lt_obj in layout:        
+        if isinstance(lt_obj, LTFigure):
+            string_from_LTFigure = string_from_LTFigure + parse_layout(string_from_LTFigure,lt_obj)  # Recursive
+        elif isinstance(lt_obj, LTChar) or isinstance(element, LTTextBoxHorizontal) or isinstance(element, LTTextBox) or isinstance(element, LTTextLine):
+            if not previous_line == lt_obj.bbox[3]:
+                string_from_LTFigure = string_from_LTFigure + ' '
+                previous_line = lt_obj.bbox[3]
+            string_from_LTFigure = string_from_LTFigure + lt_obj.get_text() 
+    return string_from_LTFigure
 
 def ocr_core(filename_extract):
     """
@@ -173,7 +186,8 @@ interpreter = PDFPageInterpreter(rsrcmgr, device)
 j = 0
 counttext    = []
 notcounttext = []
-keywords = ['Lista de Símbolos','LISTA DE SIMBOLOS','Sumário','Lista de Inputs','Lista de Outputs','Bibliografia','Referências Bibliográﬁcas']
+keywords = ['Lista de Símbolos','LISTA DE SIMBOLOS','Sumário','Lista de Inputs','Lista de Outputs','Bibliografia','Referências Bibliográﬁcas','Referências','References','Symbol List','Summary','Symbols and Acronyms','Inputs','Outputs','List of Inputs','List of Outputs','Bibliography']
+
 countwords = 0
 countnonwords = 0
 countfigures = 0
@@ -208,11 +222,25 @@ for page in PDFPage.get_pages(document):
         if position[3]/28.35>=27.0 or position[1]/28.35<=1.75:
             headerfooter = True
         
-        if isinstance(element, LTTextBoxHorizontal) or isinstance(element, LTTextBox) or isinstance(element, LTTextLine):
-            
+        if isinstance(element, LTImage) or isinstance(element, LTFigure):
+            countfigures = countfigures + 1
+        
+        string_from_LTFigure = ''
+        if isinstance(element, LTFigure):            
+            string_from_LTFigure = parse_layout(string_from_LTFigure,element)
+
+        parse_element = 0
+
+        if isinstance(element, LTTextBoxHorizontal) or isinstance(element, LTTextBox) or isinstance(element, LTTextLine) or len(string_from_LTFigure)>0:
+            parse_element = 1
+        
+        if parse_element:            
             # get line text
             k = k+1
-            words = element.get_text() 
+            if len(string_from_LTFigure)>0:
+                words = string_from_LTFigure[:]
+            else:
+                words = element.get_text() 
 
             # check if the page must be considered
             if headerfooter and countpage:
@@ -236,9 +264,8 @@ for page in PDFPage.get_pages(document):
 
             # count only pages with valid content    
             if countpage and not headerfooter:
-                words, countwords, non_words, countnonwords, count_mathwords_temp = return_categorized_words(words,countwords,countnonwords,count_mathwords)
-                count_mathwords = count_mathwords + count_mathwords_temp
-
+                words, countwords, non_words, countnonwords, count_mathwords = return_categorized_words(words,countwords,countnonwords,count_mathwords)
+                
                 # saving only words
                 if len(words) > 0:
                     counttext[j-1].append(words)
@@ -248,9 +275,6 @@ for page in PDFPage.get_pages(document):
                     notcounttext[j-1].append(non_words)
             else:
                 notcounttext[j-1].append(words)
-
-        elif isinstance(element, LTImage) or isinstance(element, LTFigure):
-            countfigures = countfigures + 1
 
 number_of_pages = j
 countwords_text = countwords
